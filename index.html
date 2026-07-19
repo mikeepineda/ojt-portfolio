@@ -718,18 +718,80 @@
   // and a caption describing the activity done that day.
   // Edit the "photo" path and "caption" text below for each entry.
   // ---------------------------------------------------------------
-  const weeklyReports = [];
-  for (let w = 1; w <= 8; w++) {
-    weeklyReports.push({
-      week: w,
+  const weeklyReports = [
+    {
+      week: 1,
       days: [
-        { day: "Monday",    photo: `images/day1.jpeg`,    caption: "Caption." },
-        { day: "Tuesday",   photo: `images/day2.jpeg`,   caption: "Caption" },
-        { day: "Wednesday", photo: `images/`, caption: "Caption." },
-        { day: "Thursday",  photo: `images/week${w}-thursday.jpg`,  caption: "Caption." },
+        { day: "Monday",    photo: "images/week1-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week1-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week1-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week1-thursday.jpg",  caption: "Describe the task or activity done this day." },
       ]
-    });
-  }
+    },
+    {
+      week: 2,
+      days: [
+        { day: "Monday",    photo: "images/week2-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week2-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week2-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week2-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 3,
+      days: [
+        { day: "Monday",    photo: "images/week3-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week3-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week3-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week3-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 4,
+      days: [
+        { day: "Monday",    photo: "images/week4-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week4-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week4-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week4-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 5,
+      days: [
+        { day: "Monday",    photo: "images/week5-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week5-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week5-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week5-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 6,
+      days: [
+        { day: "Monday",    photo: "images/week6-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week6-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week6-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week6-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 7,
+      days: [
+        { day: "Monday",    photo: "images/week7-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week7-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week7-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week7-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+    {
+      week: 8,
+      days: [
+        { day: "Monday",    photo: "images/week8-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { day: "Tuesday",   photo: "images/week8-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { day: "Wednesday", photo: "images/week8-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { day: "Thursday",  photo: "images/week8-thursday.jpg",  caption: "Describe the task or activity done this day." },
+      ]
+    },
+  ];
 
   const weeklyIntro = document.createElement('div');
   weeklyIntro.style.marginBottom = '20px';
