@@ -314,8 +314,9 @@
     line-height:1.4;
   }
 
-  /* Inline PDF preview */
-  .pdf-frame{
+  /* Inline photo preview */
+  .doc-photo-frame{
+    position:relative;
     width:100%; height:100%;
     min-height:192px;
     border-radius:8px;
@@ -324,9 +325,19 @@
     background:#fff;
     box-shadow:0 6px 16px -10px rgba(120,40,65,0.4);
   }
-  .pdf-frame object,
-  .pdf-frame embed{
-    width:100%; height:100%; min-height:192px; border:none; display:block;
+  .doc-photo-frame img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .doc-photo-fallback{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px;
+    background:
+      repeating-linear-gradient(135deg, rgba(214,87,122,0.05) 0 2px, transparent 2px 10px),
+      var(--bg-deep);
   }
 
   .paperclip{
@@ -639,29 +650,29 @@
   });
 
   // ---------------------------------------------------------------
-  // Document data. Each "file" path points to a PDF that should be
-  // uploaded to your site under the /documents folder, e.g.:
-  //   documents/01-approval-sheet.pdf
-  // The PDFs are shown inline on the page (embedded viewer) — visitors
-  // are not asked to download anything, they can just scroll and read.
+  // Document data. Each "file" path points to a JPG scan/photo that
+  // should be uploaded to your site under the /documents folder, e.g.:
+  //   documents/01-approval-sheet.jpg
+  // The images are shown inline on the page — visitors are not asked
+  // to download anything, they can just scroll and view them.
   // ---------------------------------------------------------------
 
   const beforeOJT = [
-    { tag: "01", title: "Approval Sheet", desc: "The signed page confirming your OJT placement has been reviewed and approved by your school and host company.", file: "documents/01-approval-sheet.pdf" },
-    { tag: "02", title: "Company Profile", desc: "A short profile of the host company — its background, services, and the industry it operates in.", file: "documents/02-company-profile.pdf" },
-    { tag: "03", title: "Memorandum of Agreement", desc: "The formal agreement between the school and the host company outlining the terms of the internship.", file: "documents/03-memorandum-of-agreement.pdf" },
-    { tag: "04", title: "Letter of Intent", desc: "A written request to the company expressing interest in completing your internship with them.", file: "documents/04-letter-of-intent.pdf" },
-    { tag: "05", title: "Letter of Endorsement", desc: "A letter from the school endorsing the student as a qualified intern candidate to the host company.", file: "documents/05-letter-of-endorsement.pdf" },
-    { tag: "06", title: "Student Waiver", desc: "A signed waiver acknowledging the terms, responsibilities, and risks associated with the internship.", file: "documents/06-student-waiver.pdf" },
-    { tag: "07", title: "Internship Agreement", desc: "The signed contract between the student, the school, and the company setting the scope and conditions of your OJT.", file: "documents/07-internship-agreement.pdf" },
-    { tag: "08", title: "Consent Form", desc: "Parental or guardian consent authorizing the participation in the internship program.", file: "documents/08-consent-form.pdf" },
-    { tag: "09", title: "Curriculum Vitae", desc: "CV summarizing your education, skills, and relevant experience prior to the internship.", file: "documents/09-curriculum-vitae.pdf" },
-    { tag: "10", title: "Medical Certificate", desc: "A certificate confirming the student are medically fit to undergo the internship.", file: "documents/10-medical-certificate.pdf" },
+    { tag: "01", title: "Approval Sheet", desc: "The signed page confirming your OJT placement has been reviewed and approved by your school and host company.", file: "documents/01-approval-sheet.jpg" },
+    { tag: "02", title: "Company Profile", desc: "A short profile of the host company — its background, services, and the industry it operates in.", file: "documents/02-company-profile.jpg" },
+    { tag: "03", title: "Memorandum of Agreement", desc: "The formal agreement between the school and the host company outlining the terms of the internship.", file: "documents/03-memorandum-of-agreement.jpg" },
+    { tag: "04", title: "Letter of Intent", desc: "A written request to the company expressing interest in completing your internship with them.", file: "documents/04-letter-of-intent.jpg" },
+    { tag: "05", title: "Letter of Endorsement", desc: "A letter from the school endorsing the student as a qualified intern candidate to the host company.", file: "documents/05-letter-of-endorsement.jpg" },
+    { tag: "06", title: "Student Waiver", desc: "A signed waiver acknowledging the terms, responsibilities, and risks associated with the internship.", file: "documents/06-student-waiver.jpg" },
+    { tag: "07", title: "Internship Agreement", desc: "The signed contract between the student, the school, and the company setting the scope and conditions of your OJT.", file: "documents/07-internship-agreement.jpg" },
+    { tag: "08", title: "Consent Form", desc: "Parental or guardian consent authorizing the participation in the internship program.", file: "documents/08-consent-form.jpg" },
+    { tag: "09", title: "Curriculum Vitae", desc: "CV summarizing your education, skills, and relevant experience prior to the internship.", file: "documents/09-curriculum-vitae.jpg" },
+    { tag: "10", title: "Medical Certificate", desc: "A certificate confirming the student are medically fit to undergo the internship.", file: "documents/10-medical-certificate.jpg" },
   ];
 
   const evaluation = [
-    { tag: "12", title: "Evaluation Instrument for Training Supervisor", desc: "The rating form completed by the training supervisor assessing the intern's performance, work ethic, and skills on site.", file: "documents/12-evaluation-instrument-supervisor.pdf" },
-    { tag: "13", title: "CPE Performance Evaluation Grading System", desc: "The Computer Engineering department's grading rubric used to convert supervisor evaluations into a final OJT grade.", file: "documents/13-cpe-performance-grading-system.pdf" },
+    { tag: "12", title: "Evaluation Instrument for Training Supervisor", desc: "The rating form completed by the training supervisor assessing the intern's performance, work ethic, and skills on site.", file: "documents/12-evaluation-instrument-supervisor.jpg" },
+    { tag: "13", title: "CPE Performance Evaluation Grading System", desc: "The Computer Engineering department's grading rubric used to convert supervisor evaluations into a final OJT grade.", file: "documents/13-cpe-performance-grading-system.jpg" },
   ];
 
   const iconDoc = `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>`;
@@ -669,27 +680,27 @@
   const iconCamera = `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`;
   const iconExternal = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>`;
 
-  // Renders a document card with an inline embedded PDF viewer.
-  function renderPdfCard(doc) {
+  // Renders a document card with an inline JPG image preview.
+  function renderPhotoCard(doc) {
     const card = document.createElement('div');
     card.className = 'doc-card';
     card.innerHTML = `
       <span class="doc-tab">Exhibit ${doc.tag}</span>
       <div class="attachment">
-        <div class="pdf-frame">
-          <object data="${doc.file}#toolbar=0&navpanes=0" type="application/pdf" aria-label="${doc.title} PDF preview">
-            <div class="frame">
-              ${iconDoc}
-              <small>PDF preview unavailable in this browser.<br>${doc.title}</small>
-            </div>
-          </object>
+        <div class="doc-photo-frame">
+          <img src="${doc.file}" alt="${doc.title}"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="doc-photo-fallback" style="display:none;">
+            ${iconDoc}
+            <small>Photo not found.<br>${doc.title}</small>
+          </div>
         </div>
       </div>
       <div class="doc-body">
         <span class="num">Document ${doc.tag}</span>
         <h3>${doc.title}</h3>
         <p>${doc.desc}</p>
-        <span class="doc-status">${iconCheck} PDF on file</span>
+        <span class="doc-status">${iconCheck} Photo on file</span>
         <a class="view-link" href="${doc.file}" target="_blank" rel="noopener">${iconExternal} Open full view</a>
       </div>
     `;
@@ -697,10 +708,10 @@
   }
 
   const binderBefore = document.getElementById('binder-before');
-  beforeOJT.forEach(doc => binderBefore.appendChild(renderPdfCard(doc)));
+  beforeOJT.forEach(doc => binderBefore.appendChild(renderPhotoCard(doc)));
 
   const binderEvaluation = document.getElementById('binder-evaluation');
-  evaluation.forEach(doc => binderEvaluation.appendChild(renderPdfCard(doc)));
+  evaluation.forEach(doc => binderEvaluation.appendChild(renderPhotoCard(doc)));
 
   // ---------------------------------------------------------------
   // Weekly Photo Documentation Report — During OJT section.
