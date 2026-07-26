@@ -428,7 +428,7 @@
 
   .day-grid{
     display:grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap:16px;
     padding:20px 30px 28px 30px;
   }
@@ -460,7 +460,8 @@
   }
   .day-photo-fallback{
     position:absolute; inset:0;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:none;
+    flex-direction:column; align-items:center; justify-content:center;
     gap:6px;
     color:var(--ink-faint);
   }
@@ -667,8 +668,8 @@
     { tag: "07", title: "Internship Agreement", desc: "The signed contract between the student, the school, and the company setting the scope and conditions of your OJT.", file: "documents/07-internship-agreement.jpg" },
     { tag: "08", title: "Consent Form", desc: "Parental or guardian consent authorizing the participation in the internship program.", file: "images/pinedaconsent.jpg" },
     { tag: "09", title: "Curriculum Vitae", desc: "CV summarizing your education, skills, and relevant experience prior to the internship.", file: "documents/09-curriculum-vitae.jpg" },
-    { tag: "10", title: "Medical Certificate", desc: "A certificate confirming the student are medically fit to undergo the internship.", file: "documents/10-medical-certificate.jpg" },
-    { tag: "11", title: "Good Moral", desc: "A certificate that shows the student is of good moral character", file: "images/pinedagoodmoral.jpg" }
+    { tag: "10", title: "Medical Certificate", desc: "A certificate confirming the student are medically fit to undergo the internship.", file: "images/medcert.jpg" },
+    { tag: "11", title: "Good Moral Certificate", desc: "A certificate confirming the student has a good moral standing.", file: "images/pinedagoodmoral.jpg" },
   ];
 
   const evaluation = [
@@ -686,6 +687,7 @@
     const card = document.createElement('div');
     card.className = 'doc-card';
     card.innerHTML = `
+      <span class="doc-tab">Exhibit ${doc.tag}</span>
       <div class="attachment">
         <div class="doc-photo-frame">
           <img src="${doc.file}" alt="${doc.title}"
@@ -700,6 +702,7 @@
         <span class="num">Document ${doc.tag}</span>
         <h3>${doc.title}</h3>
         <p>${doc.desc}</p>
+        <span class="doc-status">${iconCheck} Photo on file</span>
         <a class="view-link" href="${doc.file}" target="_blank" rel="noopener">${iconExternal} Open full view</a>
       </div>
     `;
@@ -712,83 +715,78 @@
   const binderEvaluation = document.getElementById('binder-evaluation');
   evaluation.forEach(doc => binderEvaluation.appendChild(renderPhotoCard(doc)));
 
-  // ---------------------------------------------------------------
-  // Weekly Photo Documentation Report — During OJT section.
-  // Each week has 4 days (Monday–Thursday), each with its own photo
-  // and a caption describing the activity done that day.
-  // Edit the "photo" path and "caption" text below for each entry.
-  // ---------------------------------------------------------------
   const weeklyReports = [
     {
       week: 1,
-      days: [
-        { day: "Monday",    photo: "images/6-29.jpeg",    caption: "." },
-        { day: "Tuesday",   photo: "images/6-30.jpeg",   caption: "." },
-        { day: "Wednesday", photo: "images/7-01.jpeg", caption: "." },
-        { day: "Thursday",  photo: "images/7-02.jpeg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/6-29.jpg",    caption: "Introduction to the company and its operations. Got assigned on the ITO Building as a Web Application and Database Administration Intern." },
+        { label: "Tuesday",   photo: "images/6-30.jpg",   caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Wednesday", photo: "images/7-01.jpg", caption: "On Leave (Hard Hatting Ceremony)." },
+        { label: "Thursday",  photo: "images/7-02.jpg",  caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
       ]
     },
     {
       week: 2,
-      days: [
-        { day: "Monday",    photo: "images/7-06.jpeg",    caption: "." },
-        { day: "Tuesday",   photo: "images/7-07.jpeg",   caption: "." },
-        { day: "Wednesday", photo: "images/7-08.jpeg", caption: "." },
-        { day: "Thursday",  photo: "images/7-09.jpeg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/7-06.jpg",    caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Tuesday",   photo: "images/7-07.jpg",   caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Wednesday", photo: "images/7-08.jpg", caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Thursday",  photo: "images/7-09.jpg",  caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
       ]
     },
     {
       week: 3,
-      days: [
-        { day: "Monday",    photo: "images/7-13.jpeg",    caption: "." },
-        { day: "Tuesday",   photo: "images/7-14.jpeg",   caption: "." },
-        { day: "Wednesday", photo: "images/7-15.jpeg", caption: "." },
-        { day: "Thursday",  photo: "images/7-16.jpeg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/7-13.jpg",    caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Tuesday",   photo: "images/7-14.jpg",   caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Wednesday", photo: "images/7-15.jpg", caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
+        { label: "Thursday",  photo: "images/7-16.jpg",  caption: "Handled the scanning and digital archiving of physical documents to ensure organized electronic record-keeping." },
       ]
     },
     {
       week: 4,
-      days: [
-        { day: "Monday",    photo: "images/week4-monday.jpg",    caption: "." },
-        { day: "Tuesday",   photo: "images/week4-tuesday.jpg",   caption: "." },
-        { day: "Wednesday", photo: "images/week4-wednesday.jpg", caption: "." },
-        { day: "Thursday",  photo: "images/week4-thursday.jpg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/7-20.jpg",    caption: "Got assigned to ITO Hardware Department. Soldering defective laptop charger." },
+        { label: "Tuesday",   photo: "images/7-21.jpg",   caption: "Serviced at CGAS Office. Helped the end user connect to multiple printers using an IP address." },
+        { label: "Wednesday", photo: "images/7-22.jpg", caption: "Changed the defective laptop battery. Formatted units" },
+        { label: "Thursday",  photo: "images/7-23.jpg",  caption: "Serviced at Web Development Office. Checked if the units are labelled correctly." },
+        { label: "Additional Images",  photo: "images/addimg1.jpg",  caption: "Serviced at Web Development Office. Checked if the units are labelled correctly." },
       ]
     },
     {
       week: 5,
-      days: [
-        { day: "Monday",    photo: "images/week5-monday.jpg",    caption: "." },
-        { day: "Tuesday",   photo: "images/week5-tuesday.jpg",   caption: "." },
-        { day: "Wednesday", photo: "images/week5-wednesday.jpg", caption: "." },
-        { day: "Thursday",  photo: "images/week5-thursday.jpg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/7-27.jpg",    caption: "Describe the task or activity done this day." },
+        { label: "Tuesday",   photo: "images/7-28.jpg",   caption: "Describe the task or activity done this day." },
+        { label: "Wednesday", photo: "images/7-29.jpg", caption: "Describe the task or activity done this day." },
+        { label: "Thursday",  photo: "images/7-30.jpg",  caption: "Describe the task or activity done this day." },
       ]
     },
     {
       week: 6,
-      days: [
-        { day: "Monday",    photo: "images/week6-monday.jpg",    caption: "." },
-        { day: "Tuesday",   photo: "images/week6-tuesday.jpg",   caption: "." },
-        { day: "Wednesday", photo: "images/week6-wednesday.jpg", caption: "." },
-        { day: "Thursday",  photo: "images/week6-thursday.jpg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/week6-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { label: "Tuesday",   photo: "images/week6-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { label: "Wednesday", photo: "images/week6-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { label: "Thursday",  photo: "images/week6-thursday.jpg",  caption: "Describe the task or activity done this day." },
       ]
     },
     {
       week: 7,
-      days: [
-        { day: "Monday",    photo: "images/week7-monday.jpg",    caption: "." },
-        { day: "Tuesday",   photo: "images/week7-tuesday.jpg",   caption: "." },
-        { day: "Wednesday", photo: "images/week7-wednesday.jpg", caption: "." },
-        { day: "Thursday",  photo: "images/week7-thursday.jpg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/week7-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { label: "Tuesday",   photo: "images/week7-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { label: "Wednesday", photo: "images/week7-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { label: "Thursday",  photo: "images/week7-thursday.jpg",  caption: "Describe the task or activity done this day." },
       ]
     },
     {
       week: 8,
-      days: [
-        { day: "Monday",    photo: "images/week8-monday.jpg",    caption: "." },
-        { day: "Tuesday",   photo: "images/week8-tuesday.jpg",   caption: "." },
-        { day: "Wednesday", photo: "images/week8-wednesday.jpg", caption: "." },
-        { day: "Thursday",  photo: "images/week8-thursday.jpg",  caption: "." },
+      photos: [
+        { label: "Monday",    photo: "images/week8-monday.jpg",    caption: "Describe the task or activity done this day." },
+        { label: "Tuesday",   photo: "images/week8-tuesday.jpg",   caption: "Describe the task or activity done this day." },
+        { label: "Wednesday", photo: "images/week8-wednesday.jpg", caption: "Describe the task or activity done this day." },
+        { label: "Thursday",  photo: "images/week8-thursday.jpg",  caption: "Describe the task or activity done this day." },
       ]
     },
   ];
@@ -798,7 +796,7 @@
   weeklyIntro.innerHTML = `
     <span class="num" style="font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--ink-faint); letter-spacing:0.08em;">Document 11</span>
     <h3 style="font-size:1.28rem; margin:6px 0 8px;">Weekly Photo Documentation Report</h3>
-    <p style="color:var(--ink-soft); font-size:0.93rem; max-width:60ch;">A running log of accomplishments for each week of the internship. Every week includes four photos — Monday through Thursday — each paired with a short caption describing that day's activity.</p>
+    <p style="color:var(--ink-soft); font-size:0.93rem; max-width:60ch;">A running log of accomplishments for each week of the internship. Each week can hold any number of photos, each paired with a short caption describing that activity.</p>
   `;
   document.getElementById('binder-during').appendChild(weeklyIntro);
 
@@ -810,20 +808,20 @@
     const card = document.createElement('div');
     card.className = 'week-card';
 
-    let daySlots = '';
-    report.days.forEach(d => {
-      daySlots += `
+    let photoSlots = '';
+    report.photos.forEach(p => {
+      photoSlots += `
         <div class="day-slot">
-          <span class="day-label">${d.day}</span>
+          <span class="day-label">${p.label}</span>
           <div class="day-photo-frame">
-            <img src="${d.photo}" alt="Week ${report.week} ${d.day} activity photo"
+            <img src="${p.photo}" alt="Week ${report.week} ${p.label} activity photo"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="day-photo-fallback">
               ${iconCamera}
               <span>Add photo</span>
             </div>
           </div>
-          <p class="day-caption">${d.caption}</p>
+          <p class="day-caption">${p.caption}</p>
         </div>`;
     });
 
@@ -832,9 +830,9 @@
       <div class="week-card-head">
         <span class="num">Document 11 · Week ${report.week}</span>
         <h3>Week ${report.week} Activities</h3>
-        <p>Monday to Thursday documentation for week ${report.week} of the internship.</p>
+        <p>${report.photos.length} photo${report.photos.length === 1 ? '' : 's'} documented for week ${report.week} of the internship.</p>
       </div>
-      <div class="day-grid">${daySlots}</div>
+      <div class="day-grid">${photoSlots}</div>
     `;
     weeklyBinder.appendChild(card);
   });
