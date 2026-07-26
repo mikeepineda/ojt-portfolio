@@ -650,14 +650,6 @@
     });
   });
 
-  // ---------------------------------------------------------------
-  // Document data. Each "file" path points to a JPG scan/photo that
-  // should be uploaded to your site under the /documents folder, e.g.:
-  //   documents/01-approval-sheet.jpg
-  // The images are shown inline on the page — visitors are not asked
-  // to download anything, they can just scroll and view them.
-  // ---------------------------------------------------------------
-
   const beforeOJT = [
     { tag: "01", title: "Approval Sheet", desc: "The signed page confirming your OJT placement has been reviewed and approved by your school and host company.", file: "documents/01-approval-sheet.jpg" },
     { tag: "02", title: "Company Profile", desc: "A short profile of the host company — its background, services, and the industry it operates in.", file: "documents/02-company-profile.jpg" },
@@ -750,7 +742,13 @@
         { label: "Tuesday",   photo: "images/7-21.jpeg",   caption: "Serviced at CGAS Office. Helped the end user connect to multiple printers using an IP address." },
         { label: "Wednesday", photo: "images/7-22.jpeg", caption: "Changed the defective laptop battery. Formatted units" },
         { label: "Thursday",  photo: "images/7-23.jpeg",  caption: "Serviced at Web Development Office. Checked if the units are labelled correctly." },
-        { label: "Additional Images",  photo: "images/addimg1.jpeg",  caption: "Serviced at Web Development Office. Checked if the units are labelled correctly." },
+        { label: "Additional Images",  photo: "images/addimg1.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg2.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg3.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg4.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg5.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg6.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg7.jpeg",},
       ]
     },
     {
@@ -807,23 +805,36 @@
   weeklyReports.forEach(report => {
     const card = document.createElement('div');
     card.className = 'week-card';
+    const basePhotos = report.photos.slice(0, 4);
+    const extraPhotos = report.photos.slice(4);
 
-    let photoSlots = '';
-    report.photos.forEach(p => {
-      photoSlots += `
-        <div class="day-slot">
-          <span class="day-label">${p.label}</span>
-          <div class="day-photo-frame">
-            <img src="${p.photo}" alt="Week ${report.week} ${p.label} activity photo"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="day-photo-fallback">
-              ${iconCamera}
-              <span>Add photo</span>
+    function buildSlots(list) {
+      let slots = '';
+      list.forEach(p => {
+        slots += `
+          <div class="day-slot">
+            <span class="day-label">${p.label}</span>
+            <div class="day-photo-frame">
+              <img src="${p.photo}" alt="Week ${report.week} ${p.label} activity photo"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="day-photo-fallback">
+                ${iconCamera}
+                <span>Add photo</span>
+              </div>
             </div>
-          </div>
-          <p class="day-caption">${p.caption}</p>
-        </div>`;
-    });
+            <p class="day-caption">${p.caption}</p>
+          </div>`;
+      });
+      return slots;
+    }
+
+    let extraBlock = '';
+    if (extraPhotos.length > 0) {
+      extraBlock = `
+        <span class="extra-label">Additional Photos</span>
+        <div class="day-grid">${buildSlots(extraPhotos)}</div>
+      `;
+    }
 
     card.innerHTML = `
       <span class="doc-tab">Week ${report.week}</span>
@@ -832,7 +843,8 @@
         <h3>Week ${report.week} Activities</h3>
         <p>${report.photos.length} photo${report.photos.length === 1 ? '' : 's'} documented for week ${report.week} of the internship.</p>
       </div>
-      <div class="day-grid">${photoSlots}</div>
+      <div class="day-grid">${buildSlots(basePhotos)}</div>
+      ${extraBlock}
     `;
     weeklyBinder.appendChild(card);
   });
