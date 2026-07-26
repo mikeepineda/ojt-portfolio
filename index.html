@@ -740,15 +740,15 @@
       photos: [
         { label: "Monday",    photo: "images/7-20.jpeg",    caption: "Got assigned to ITO Hardware Department. Soldering defective laptop charger." },
         { label: "Tuesday",   photo: "images/7-21.jpeg",   caption: "Serviced at CGAS Office. Helped the end user connect to multiple printers using an IP address." },
-        { label: "Wednesday", photo: "images/7-22.jpeg", caption: "Changed the defective laptop battery. Formatted units" },
+        { label: "Wednesday", photo: "images/7-22.jpeg", caption: "Changed the defective laptop battery. Formatted units." },
         { label: "Thursday",  photo: "images/7-23.jpeg",  caption: "Serviced at Web Development Office. Checked if the units are labelled correctly." },
-        { label: "Additional Images",  photo: "images/addimg1.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg2.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg3.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg4.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg5.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg6.jpeg",},
-        { label: "Additional Images",  photo: "images/addimg7.jpeg",},
+        { label: "Additional Images",  photo: "images/addimg1.jpeg", caption: "ITO Hardware Office." },
+        { label: "Additional Images",  photo: "images/addimg2.jpeg", caption: "Unit that needs repair/to be formatted. " },
+        { label: "Additional Images",  photo: "images/addimg3.jpeg", caption: "Workplace when fixing defective units. " },
+        { label: "Additional Images",  photo: "images/addimg4.jpeg", caption: "Locking in the wire." },
+        { label: "Additional Images",  photo: "images/addimg5.jpeg", caption: "Fixed wire laptop charger. " },
+        { label: "Additional Images",  photo: "images/addimg6.jpeg", caption: "Damaged wire." },
+        { label: "Additional Images",  photo: "images/addimg7.jpeg", caption: "Cleaning the unit. " },
       ]
     },
     {
@@ -831,7 +831,6 @@
     let extraBlock = '';
     if (extraPhotos.length > 0) {
       extraBlock = `
-        <span class="extra-label">Additional Photos</span>
         <div class="day-grid">${buildSlots(extraPhotos)}</div>
       `;
     }
