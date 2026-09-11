@@ -660,7 +660,7 @@
     { tag: "07", title: "Curriculum Vitae", desc: "CV summarizing your education, skills, and relevant experience prior to the internship.", file: "images/resume.pdf" },
     { tag: "08", title: "Medical Certificate", desc: "A certificate confirming the student are medically fit to undergo the internship.", file: "images/medcert.jpg" },
     { tag: "09", title: "Good Moral Certificate", desc: "A certificate confirming the student has a good moral standing.", file: "images/pinedagoodmoral.jpg" },
-    { tag: "10", title: "Certificate of Completion", desc: "A certificate confirming the student has completed the internship requirements.", file: "images/pinedacoc.png" },
+    { tag: "10", title: "Certificate of Completion", desc: "A certificate confirming the student has completed the internship requirements.", file: "images/pinedacoc.jpg" },
   ];
 
   const evaluation = [
@@ -675,7 +675,6 @@
 
   // Renders a document card with an inline JPG image preview.
   function renderPhotoCard(doc) {
-    const isPdf = doc.file.toLowerCase().endsWith('.pdf');
     const card = document.createElement('div');
     card.className = 'doc-card';
     card.innerHTML = `
@@ -686,7 +685,7 @@
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="doc-photo-fallback" style="display:none;">
             ${iconDoc}
-            <small>Photo not found.<br>${doc.title}</small>
+            <small>Click open full view to view the document.<br>${doc.title}</small>
           </div>
         </div>
       </div>
