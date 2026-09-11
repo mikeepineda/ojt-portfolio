@@ -675,15 +675,40 @@
 
   // Renders a document card with an inline JPG image preview.
   function renderPhotoCard(doc) {
+    const isPdf = doc.file.toLowerCase().endsWith('.pdf');
     const card = document.createElement('div');
     card.className = 'doc-card';
-    card.innerHTML = `
-      <span class="doc-tab">Exhibit ${doc.tag}</span>
-      <div class="attachment">
+    
+    const previewHtml = isPdf
+      ? `
+        <div class="doc-photo-frame">
+          <object data="${doc.file}#toolbar=0&navpanes=0" type="application/pdf" aria-label="${doc.title} PDF preview">
+            <div class="frame">
+              ${iconDoc}
+              <small>PDF preview unavailable in this browser.<br>${doc.title}</small>
+            </div>
+          </object>
+        </div>`
+      : `
         <div class="doc-photo-frame">
           <img src="${doc.file}" alt="${doc.title}"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="doc-photo-fallback" style="display:none;">
+            ${iconDoc}
+            <small>Photo not found.<br>${doc.title}</small>
+          </div>
+        </div>`;
+    
+    card.innerHTML = `
+      <span class="doc-tab">Exhibit ${doc.tag}</span>
+      <div class="attachment">
+        ${previewHtml}
+      </div>
+      <div class="doc-body">
+        <span class="num">Document ${doc.tag}</span>
+        <h3>${doc.title}</h3>
+        <p>${doc.desc}</p>
+        <span class="doc-status">${iconCheck} Photo on file</span>
             ${iconDoc}
             <small>Photo not found.<br>${doc.title}</small>
           </div>
